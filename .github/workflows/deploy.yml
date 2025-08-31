@@ -1,0 +1,31 @@
+name: Build and Deploy Dashboard
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Compilar proyecto
+        run: npm run build
+
+      - name: Publicar artefactos (opcional)
+        uses: actions/upload-artifact@v3
+        with:
+          name: dashboard-build
+          path: dist/
